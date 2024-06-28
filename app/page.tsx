@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Pen, Eraser, Highlighter, Palette, Minus, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import MusicSheetSidebar from './music-sheet-sidebar';
 
 const tools = [
   { name: 'Pen', icon: Pen },
@@ -11,33 +12,25 @@ const tools = [
 ];
 
 const colors = ['black', 'red', 'blue', 'green', 'yellow'];
-
+const plcd_image = 'https://imgs.search.brave.com/-Sob40ttdYv15EhwMqEHCGUNGYkJ7DYJSgKEoIBTUdY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzL2ZkL2I0/LzNjL2ZkYjQzYzVl/YmNkNDZlZmEwZGI0/M2Y4NWIyNTk1MDA5/LmpwZw';
 const Home = () => {
   const [selectedTool, setSelectedTool] = useState('Pen');
   const [selectedColor, setSelectedColor] = useState('black');
   const [strokeWidth, setStrokeWidth] = useState(2);
 
   return (
+    <>
     <div className="flex h-screen">
-      {/* Left sidebar for music sheet covers */}
-      <div className="w-20 bg-gray-200 p-2">
-        {[1, 2, 3].map((sheet) => (
-          <div key={sheet} className="mb-2 h-24 w-full bg-white shadow-md cursor-pointer">
-            <img src={`https://imgs.search.brave.com/-Sob40ttdYv15EhwMqEHCGUNGYkJ7DYJSgKEoIBTUdY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzL2ZkL2I0/LzNjL2ZkYjQzYzVl/YmNkNDZlZmEwZGI0/M2Y4NWIyNTk1MDA5/LmpwZw`} alt={`Music Sheet ${sheet}`} className="w-full h-full object-cover" />
-          </div>
-        ))}
-      </div>
-
       {/* Main content area */}
       <div className="flex-1 flex flex-col">
         {/* Toolbar */}
         <div className="bg-gray-100 p-2 flex items-center space-x-4">
           {tools.map((tool) => (
             <Button
-              key={tool.name}
-              variant={selectedTool === tool.name ? 'default' : 'outline'}
-              size="icon"
-              onClick={() => setSelectedTool(tool.name)}
+            key={tool.name}
+            variant={selectedTool === tool.name ? 'default' : 'outline'}
+            size="icon"
+            onClick={() => setSelectedTool(tool.name)}
             >
               <tool.icon className="h-4 w-4" />
             </Button>
@@ -67,22 +60,28 @@ const Home = () => {
             </Button>
           </div>
         </div>
+        <div className='w-full flex'>
+            <div className="w-1/5">
+              <MusicSheetSidebar />
+            </div>
 
-        {/* Music Sheet Area */}
-        <div className="flex-1 bg-white p-4">
+            {/* Music Sheet Area */}
+            <div className="w-4/5 bg-white p-4">
           <h2 className="text-2xl font-bold mb-4">Music Sheet</h2>
           {/* Placeholder for the actual music sheet content */}
           <div className="border-2 border-dashed border-gray-300 h-full flex items-center justify-center">
             <p className="text-gray-500">Music sheet content goes here</p>
           </div>
         </div>
+        </div>
 
-        {/* Live Sharing Placeholder */}
+        {/* Live Sharing Placeholder
         <div className="bg-gray-100 p-2">
           <p className="text-sm text-gray-600">Live sharing status: <span className="font-medium">Connected</span></p>
-        </div>
+        </div> */}
       </div>
     </div>
+    </>
   );
 };
 
